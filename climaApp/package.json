@@ -11,8 +11,8 @@
     "clean": "rm -rf .expo node_modules"
   },
   "jest": {
-  "preset": "jest-expo",
-  "transformIgnorePatterns": []
+    "preset": "jest-expo",
+    "transformIgnorePatterns": []
   },
   "dependencies": {
     "@react-navigation/native": "^7.0.0",
@@ -54,5 +54,4 @@
     "typescript": "~5.9.2"
   },
   "private": true
-  
 }
