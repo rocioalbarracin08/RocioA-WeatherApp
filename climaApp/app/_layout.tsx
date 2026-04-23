@@ -2,7 +2,7 @@ import '@/global.css';
 
 import { PortalHost } from '@rn-primitives/portal';
 import { Stack } from 'expo-router';
-import ProveedorDeTemaClaroOscuro from '@/src/tema_claro_oscuro';
+import ProveedorDeTemaClaroOscuro from '@/src/componentes/contenido/tema_claro_oscuro';
 
 
 export {
