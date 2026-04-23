@@ -10,6 +10,7 @@ export default function ProveedorDeTemaClaroOscuro({children}: PropsWithChildren
   return (
     <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
         <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} /> 
+        {children}
     </ThemeProvider>
   );
 }   
