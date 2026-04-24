@@ -1,9 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { View } from 'react-native'
 
-const PantallaPrincipal = ({ children }: { children : ReactNode}) => {
-//Si genera error, revisar cambiar el tipo de children a "PropsWithChildren"
-
+const PantallaPrincipal = ({ children }:  PropsWithChildren ) => {
   return (
     <View testID="screen-weather"> {children}
     </View>
