@@ -12,10 +12,13 @@ export const usarPronosticoClimatico = ({
   clave_de_api: string;
 }) => {
   const { isPending, isFetched, isError, error, data } = useQuery({
+    enabled: latitud !== 0 && longitud !== 0,
+    
     queryKey: [fecha.getDate(), fecha.getHours(), latitud.toPrecision(2), longitud.toPrecision(2)],
     queryFn: async () => {
+      console.log(process.env.EXPO_PUBLIC_WEATHER_API_KEY);
       const resultado = await fetch(
-        `http://api.weatherapi.com/v1/current.json?key=${clave_de_api}&q=${latitud},${longitud}`
+        `http://api.weatherapi.com/v1/forecast.json?key=${clave_de_api}&q=${latitud},${longitud}&days=3`
       );
       const data = await resultado.json();
       return data;
@@ -26,7 +29,7 @@ export const usarPronosticoClimatico = ({
     estaPendiente: () => isPending,
     huboUnProblema: () => isError,
     consultaExitosa: () => isFetched,
-    ciudad: () => (isFetched ? data.location.name : ''),
+    ciudad: () => data?.location?.name ?? '',
     condicionClimatica: () => (isFetched ? data.current.condition.text : ''),
     humedadEnPorcentaje: () => (isFetched ? data.current.humidity : 0),
     presionEnHectopascales: () => (isFetched ? data.current.pressure_mb : 0),

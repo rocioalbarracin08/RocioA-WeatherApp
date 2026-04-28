@@ -3,14 +3,12 @@ import { View, Text } from 'react-native';
 
 type Props = Parameters<typeof usarPronosticoClimatico>[0];
 
-const TarjetaParaDatosClimaticos = (props: Props) => {
-  const { ciudad, temperaturaEnGradosCelsius } = usarPronosticoClimatico(props);
+const TarjetaParaDatosClimaticos = ({clima}: any) => {
 
   return (
     <View>
-      <Text className="text-6xl">Ciudad: {ciudad()}</Text>
       <Text className="text-6xl">
-        Temperatura: {temperaturaEnGradosCelsius()}
+        Temperatura: {clima.temperaturaEnGradosCelsius()}
       </Text>
     </View>
   );
