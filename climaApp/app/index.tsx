@@ -3,16 +3,15 @@ import LayoutParaPantallaPrincipalDelClima from '@/src/componentes/contenedor/La
 import BotonesDeNavegacionPorDias from '../src/componentes/contenido/NavegacionPorDias'
 import { useFechas } from '../src/hooks/dias'
 import ProveedorDeDatosClimatico from '@/src/componentes/contenedor/ProveedorDeClima'
-import { View } from 'react-native'
 import TarjetaParaDatosClimaticos from '@/src/componentes/contenido/TarjetaParaDatosClimaticos'
-import usarLocalizacion from '@/src/hooks/localizacion'
+import useLocalizacion from '@/src/hooks/localizacion'
 import EncabezadoDeCiudad from '@/src/componentes/contenido/EncabezadoDeCiudad'
-import usarPronosticoClimatico from '../src/hooks/clima'
+import usePronosticoClimatico from '../src/hooks/clima'
 
 const App = () => {
   const {fecha} = useFechas()
-  const { coordenadas, coordenadasDisponibles } = usarLocalizacion();
-  const clima = usarPronosticoClimatico({
+  const { coordenadas, coordenadasDisponibles } = useLocalizacion();
+  const clima = usePronosticoClimatico({
     fecha: fecha().hoy,
     latitud: coordenadas().latitud,
     longitud: coordenadas().longitud,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 
-export const usarLocalizacion = () => {
+export const useLocalizacion = () => {
   const [coordenadas, cambiarCoordenadas] = useState<{ latitud: number; longitud: number }>({
     latitud: 0,
     longitud: 0,
@@ -35,4 +35,4 @@ export const usarLocalizacion = () => {
   };
 };
 
-export default usarLocalizacion;
+export default useLocalizacion;

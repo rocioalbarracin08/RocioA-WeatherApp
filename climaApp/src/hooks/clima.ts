@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-export const usarPronosticoClimatico = ({
+export const usePronosticoClimatico = ({
   fecha,
   latitud,
   longitud,
