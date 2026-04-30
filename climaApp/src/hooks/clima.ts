@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import type { ClimaPorDia } from '../tipos/infoClima';
 
 export const usePronosticoClimatico = ({
   fecha,
@@ -11,42 +12,50 @@ export const usePronosticoClimatico = ({
   longitud: number;
   clave_de_api: string;
 }) => {
+
   const { isPending, isFetched, isError, error, data } = useQuery({
     enabled: latitud !== 0 && longitud !== 0,
-    
-    queryKey: [fecha.getDate(), fecha.getHours(), latitud.toPrecision(2), longitud.toPrecision(2)],
-    queryFn: async () => {
-      console.log(process.env.EXPO_PUBLIC_WEATHER_API_KEY);
+
+    queryKey: [fecha.getDate(), latitud, longitud],
+
+    queryFn: async (): Promise<ClimaPorDia> => {
       const resultado = await fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=${clave_de_api}&q=${latitud},${longitud}&days=3`
+        `http://api.weatherapi.com/v1/forecast.json?key=${clave_de_api}&q=${latitud},${longitud}&days=1`
       );
-      const data = await resultado.json();
-      return data;
+
+      const json = await resultado.json();
+      
+      return {
+        ciudad: json.location.name,
+        condicion: json.current.condition.text,
+        codigoCondicion: json.current.condition.code,
+        fecha: json.location.localtime,
+        temperatura: json.current.temp_c,
+        min: json.forecast.forecastday[0].day.mintemp_c,
+        max: json.forecast.forecastday[0].day.maxtemp_c,
+        indicadores: [
+          {
+            tipo: "Humedad",
+            valor: json.current.humidity,
+            unidad: "%"
+          },
+          {
+            tipo: "Viento",
+            valor: json.current.wind_kph,
+            unidad: "km/h"
+          }
+        ]
+      };
     },
   });
 
   return {
     estaPendiente: () => isPending,
     huboUnProblema: () => isError,
-    consultaExitosa: () => isFetched,
-    ciudad: () => data?.location?.name ?? '',
-    condicionClimatica: () => (isFetched ? data.current.condition.text : ''),
-    humedadEnPorcentaje: () => (isFetched ? data.current.humidity : 0),
-    presionEnHectopascales: () => (isFetched ? data.current.pressure_mb : 0),
-    velocidadDelVientoEnKilometrosPorHora: () => (isFetched ? data.current.wind_kph : 0),
-    temperaturaEnGradosCelsius: () => (isFetched ? data.current.temp_c : 0),
     descripcionDelProblema: () => (isError ? (error as Error).message : ''),
-    pronostico: () =>
-      isFetched
-        ? {
-            condicion_climatica: data.current.condition.text,
-            humedad_en_porcentaje: data.current.humidity,
-            presion_en_hectopascales: data.current.pressure_mb,
-            velocidad_del_viento_en_kilometros_por_hora: data.current.wind_kph,
-            temperatura_en_grados_celsius: data.current.temp_c,
-          }
-        : null,
+
+    clima: (): ClimaPorDia | null => (isFetched ? data : null),
   };
 };
 
-export default usarPronosticoClimatico;
+export default usePronosticoClimatico;

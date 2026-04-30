@@ -1,12 +1,11 @@
-import usarPronosticoClimatico from '@/src/hooks/clima';
-import React from 'react'
-import { Text } from 'react-native'
+import type { ClimaPorDia } from '../../tipos/infoClima';
+import { Text } from 'react-native';
 
-const EncabezadoDeCiudad = ({ ciudad }: { ciudad: string }) => {
-
+const EncabezadoDeCiudad = ({ ciudad }: { ciudad: string | null }) => {
   return (
-    <Text testID="header-city">{ciudad}</Text>
-  )
-}
-
-export default EncabezadoDeCiudad
+    <Text>
+      {ciudad}
+    </Text>
+  );
+};
+export default EncabezadoDeCiudad;

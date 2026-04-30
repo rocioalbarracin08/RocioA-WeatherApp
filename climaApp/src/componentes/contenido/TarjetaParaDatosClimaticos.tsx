@@ -1,14 +1,17 @@
-import usarPronosticoClimatico from '../../hooks/clima';
+import type { ClimaPorDia } from '../../tipos/infoClima';
 import { View, Text } from 'react-native';
 
-type Props = Parameters<typeof usarPronosticoClimatico>[0];
-
-const TarjetaParaDatosClimaticos = ({clima}: any) => {
+const TarjetaParaDatosClimaticos = ({ clima }: { clima: ClimaPorDia | null }) => {
+  if (!clima) return <Text>Cargando...</Text>;
 
   return (
     <View>
       <Text className="text-6xl">
-        Temperatura: {clima.temperaturaEnGradosCelsius()}
+        {clima.temperatura}°C
+      </Text>
+
+      <Text>
+        Min: {clima.min}° / Max: {clima.max}°
       </Text>
     </View>
   );
