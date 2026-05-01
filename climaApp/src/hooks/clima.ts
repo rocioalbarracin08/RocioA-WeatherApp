@@ -2,37 +2,46 @@ import { useQuery } from '@tanstack/react-query';
 import type { ClimaPorDia } from '../tipos/infoClima';
 
 export const usePronosticoClimatico = ({
-  fecha,
-  latitud,
-  longitud,
-  clave_de_api,
-}: {
+  fecha,latitud,longitud,clave_de_api, diaIndex}: {
   fecha: Date;
   latitud: number;
   longitud: number;
   clave_de_api: string;
+  diaIndex: number;
 }) => {
-
   const { isPending, isFetched, isError, error, data } = useQuery({
+    //
     enabled: latitud !== 0 && longitud !== 0,
 
-    queryKey: [fecha.getDate(), latitud, longitud],
+    queryKey: [fecha.getDate(), latitud, longitud, diaIndex], 
 
     queryFn: async (): Promise<ClimaPorDia> => {
       const resultado = await fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=${clave_de_api}&q=${latitud},${longitud}&days=1`
+        `https://api.weatherapi.com/v1/forecast.json?key=${clave_de_api}&q=${latitud},${longitud}&days=3`
       );
 
       const json = await resultado.json();
+
+      const dias = json.forecast.forecastday;
+
+      const diaSeleccionado = dias[diaIndex];
       
       return {
         ciudad: json.location.name,
-        condicion: json.current.condition.text,
-        codigoCondicion: json.current.condition.code,
-        fecha: json.location.localtime,
-        temperatura: json.current.temp_c,
-        min: json.forecast.forecastday[0].day.mintemp_c,
-        max: json.forecast.forecastday[0].day.maxtemp_c,
+
+        condicion: diaSeleccionado.day.condition.text,
+        codigoCondicion: diaSeleccionado.day.condition.code,
+
+        fecha: diaSeleccionado.date,
+
+        temperatura:
+          diaIndex === 0
+            ? json.current.temp_c
+            : diaSeleccionado.day.avgtemp_c,
+
+        min: diaSeleccionado.day.mintemp_c,
+        max: diaSeleccionado.day.maxtemp_c,
+
         indicadores: [
           {
             tipo: "Humedad",

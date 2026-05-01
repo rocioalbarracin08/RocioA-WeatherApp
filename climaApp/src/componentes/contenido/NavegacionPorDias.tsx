@@ -3,11 +3,23 @@ import { Icon } from "@/components/ui/icon";
 import { ChevronLeft, ChevronRight } from "lucide-react-native";
 import { Pressable, View } from "react-native";
 
-export default function BotonesDeNavegacionPorDias({hoy, ayer, maniana}: {hoy:Date, ayer:Date, maniana:Date}) {
-  return (
+export default function BotonesDeNavegacionPorDias({
+  hoy,
+  ayer,
+  maniana,
+  diaIndex,
+  setDiaIndex
+}: {
+  hoy: Date;
+  ayer: Date;
+  maniana: Date;
+  diaIndex: number;
+  setDiaIndex: (n: number) => void;
+}) {
+    return (
     <View className="flex-row items-center justify-between p-4">
       
-        <Pressable className="flex-row items-center space-x-2">
+        <Pressable onPress={() => diaIndex > 0 && setDiaIndex(diaIndex - 1)}>            
             <Icon as={ChevronLeft}/>
             <Text>{formatear_fecha(ayer)}</Text>
         </Pressable>
@@ -16,7 +28,7 @@ export default function BotonesDeNavegacionPorDias({hoy, ayer, maniana}: {hoy:Da
             <Text className="text-2xl font-bold">{formatear_fecha(hoy)}</Text>
         </View>
 
-        <Pressable className="flex-row items-center space-x-2">
+        <Pressable onPress={() => diaIndex < 2 && setDiaIndex(diaIndex + 1)}>            
             <Text>{formatear_fecha(maniana)}</Text>
             <Icon as={ChevronRight}/>
         </Pressable>
