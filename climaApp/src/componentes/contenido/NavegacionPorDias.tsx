@@ -20,8 +20,8 @@ export default function BotonesDeNavegacionPorDias({
     <View className="flex-row items-center justify-between p-4">
       
         <Pressable onPress={() => diaIndex > 0 && setDiaIndex(diaIndex - 1)}>            
-            <Icon as={ChevronLeft}/>
             <Text>{formatear_fecha(ayer)}</Text>
+            <Icon as={ChevronLeft}/>
         </Pressable>
         
         <View>

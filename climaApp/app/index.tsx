@@ -10,46 +10,37 @@ import usePronosticoClimatico from '../src/hooks/clima'
 import IconoClima from '../src/componentes/contenido/IconoClima'
 
 const App = () => {
-  
   const [diaIndex, setDiaIndex] = useState(0);
-  const {fecha} = useFechas()
-
+  const { fecha } = useFechas();
   const { coordenadas, coordenadasDisponibles } = useLocalizacion();
 
-  if (!coordenadasDisponibles()) return null; // primero verificamos ubicación
-
-  //ARMO UN OBJETO CON FUNCIONES DENTRO
+  //Los hooks siempre se llaman, sin importar condiciones
   const climaHook = usePronosticoClimatico({
     fecha: fecha().hoy,
     latitud: coordenadas().latitud,
     longitud: coordenadas().longitud,
     clave_de_api: process.env.EXPO_PUBLIC_API_KEY as string,
-    diaIndex
+    diaIndex,
   });
+
+  //Returns condicionales DESPUÉS de todos los hooks
+  if (!coordenadasDisponibles()) return null;
+  if (climaHook.estaPendiente()) return null;
+
   const datosClima = climaHook.clima();
 
-  if (climaHook.estaPendiente()) return null; // luego verificamos datos
-  
   return (
-    <ProveedorDeDatosClimatico >
-      
-      <LayoutParaPantallaPrincipalDelClima>
-
-        <BotonesDeNavegacionPorDias
-          {...fecha()}
-          diaIndex={diaIndex}
-          setDiaIndex={setDiaIndex}
-        />
-
-        <EncabezadoDeCiudad ciudad={datosClima?.ciudad ?? ""} />
-        <IconoClima codigo={datosClima?.codigoCondicion ?? 1000} />
-
-        <TarjetaParaDatosClimaticos clima={datosClima} />
-
-      </LayoutParaPantallaPrincipalDelClima>
-
-    </ProveedorDeDatosClimatico>
-  )
-}
+    <LayoutParaPantallaPrincipalDelClima>
+      <BotonesDeNavegacionPorDias
+        {...fecha()}
+        diaIndex={diaIndex}
+        setDiaIndex={setDiaIndex}
+      />
+      <EncabezadoDeCiudad ciudad={datosClima?.ciudad ?? ""} />
+      <IconoClima codigo={datosClima?.codigoCondicion ?? 1000} />
+      <TarjetaParaDatosClimaticos clima={datosClima} />
+    </LayoutParaPantallaPrincipalDelClima>
+  );
+};
 
 export default App
