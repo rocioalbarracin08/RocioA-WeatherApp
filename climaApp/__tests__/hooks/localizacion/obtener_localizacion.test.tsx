@@ -20,7 +20,10 @@ jest.mock('expo-location', () => {
 
 describe('Yo como usuario quiero visualizar los datos del clima según la fecha para saber qué ponerme', () => {
   beforeAll(() => jest.useFakeTimers());
-  afterAll(() => jest.useRealTimers());
+  afterAll(() => {
+    jest.clearAllTimers();
+    jest.useRealTimers();
+  });
   test('Es posible obtener las coordendas geograficas de mi localizacion', async () => {
     const resultado = renderHook(() => useLocalizacion());
 
