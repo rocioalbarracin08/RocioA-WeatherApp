@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import LayoutParaPantallaPrincipalDelClima from '@/src/componentes/contenedor/LayoutParaPantallaPrincipalDelClima'
 import BotonesDeNavegacionPorDias from '../src/componentes/contenido/NavegacionPorDias'
 import { useFechas } from '../src/hooks/dias'
-import ProveedorDeDatosClimatico from '@/src/componentes/contenedor/ProveedorDeClima'
 import TarjetaParaDatosClimaticos from '@/src/componentes/contenido/TarjetaParaDatosClimaticos'
 import useLocalizacion from '@/src/hooks/localizacion'
 import EncabezadoDeCiudad from '../src/componentes/contenido/EncabezadoDeCiudad'
@@ -22,10 +21,16 @@ const App = () => {
     clave_de_api: process.env.EXPO_PUBLIC_API_KEY as string,
     diaIndex,
   });
+  console.log("=== DEBUG ===");
+  console.log("coordenadasDisponibles:", coordenadasDisponibles());
+  console.log("coordenadas:", coordenadas());
+  console.log("estaPendiente:", climaHook.estaPendiente());
+  console.log("clima():", climaHook.clima());
+  console.log("diaIndex:", diaIndex);
 
   //Returns condicionales DESPUÉS de todos los hooks
   if (!coordenadasDisponibles()) return null;
-  if (climaHook.estaPendiente()) return null;
+  if (climaHook.estaPendiente() && !climaHook.clima()) return null;
 
   const datosClima = climaHook.clima();
 

@@ -4,39 +4,43 @@ import { ChevronLeft, ChevronRight } from "lucide-react-native";
 import { Pressable, View } from "react-native";
 
 export default function BotonesDeNavegacionPorDias({
-  hoy,
-  ayer,
-  maniana,
-  diaIndex,
-  setDiaIndex
+  hoy, ayer, maniana, diaIndex, setDiaIndex
 }: {
-  hoy: Date;
-  ayer: Date;
-  maniana: Date;
-  diaIndex: number;
-  setDiaIndex: (n: number) => void;
+  hoy: Date; ayer: Date; maniana: Date;
+  diaIndex: number; setDiaIndex: (n: number) => void;
 }) {
-    return (
-    <View className="flex-row items-center justify-between p-4">
-      
-        <Pressable onPress={() => diaIndex > 0 && setDiaIndex(diaIndex - 1)}>            
-            <Text>{formatear_fecha(ayer)}</Text>
-            <Icon as={ChevronLeft}/>
-        </Pressable>
-        
-        <View>
-            <Text className="text-2xl font-bold">{formatear_fecha(hoy)}</Text>
-        </View>
+  const dias = [ayer, hoy, maniana];
+  const diaActual = dias[diaIndex];
+  const hayAnterior = diaIndex > 0;
+  const haySiguiente = diaIndex < 2;
 
-        <Pressable onPress={() => diaIndex < 2 && setDiaIndex(diaIndex + 1)}>            
-            <Text>{formatear_fecha(maniana)}</Text>
-            <Icon as={ChevronRight}/>
+  return (
+    <View className="flex-row items-center justify-between p-4">
+
+      {hayAnterior ? (
+        <Pressable onPress={() => setDiaIndex(diaIndex - 1)} className="items-center w-16">
+          <Text>{`${dias[diaIndex - 1].getDate()}/${dias[diaIndex - 1].getMonth() + 1}`}</Text>          
+          <Icon as={ChevronLeft} size={24} />
         </Pressable>
+      ) : (
+        <View className="w-16" /> 
+      )}
+
+      <View className="items-center">
+        <Text className="text-2xl font-bold">
+          {`${diaActual.getDate()}/${diaActual.getMonth() + 1}`}
+        </Text>
+      </View>
+
+      {haySiguiente ? (
+        <Pressable onPress={() => setDiaIndex(diaIndex + 1)} className="items-center w-16">
+          <Text>{`${dias[diaIndex + 1].getDate()}/${dias[diaIndex + 1].getMonth() + 1}`}</Text>
+          <Icon as={ChevronRight} size={24} />
+        </Pressable>
+      ) : (
+        <View className="w-16" />
+      )}
 
     </View>
-  )
-}
-
-const formatear_fecha = (fecha: Date) => {
-    return `${fecha.getDate()}/${fecha.getMonth() + 1}`
+  );
 }

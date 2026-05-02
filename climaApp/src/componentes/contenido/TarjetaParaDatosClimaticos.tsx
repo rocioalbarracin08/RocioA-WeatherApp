@@ -6,13 +6,21 @@ const TarjetaParaDatosClimaticos = ({ clima }: { clima: ClimaPorDia | null }) =>
 
   return (
     <View>
-      <Text className="text-6xl">
+      <Text style={{ fontSize: 64 }}>
         {clima.temperatura}°C
       </Text>
 
       <Text>
         Min: {clima.min}° / Max: {clima.max}°
       </Text>
+
+      <View>
+        {clima.indicadores.map((indicador) => (
+          <Text key={indicador.tipo}>
+            {indicador.tipo}: {indicador.valor}{indicador.unidad}
+          </Text>
+        ))}
+      </View>
     </View>
   );
 };

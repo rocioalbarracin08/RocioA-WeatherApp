@@ -41,7 +41,7 @@ const IconoClima = ({ codigo }: Props) => {
 
   return (
     <View className="items-center my-4">
-      <Icon as={Icono} size={48} />
+      <Icon as={Icono} size={110} />
     </View>
   );
 };
