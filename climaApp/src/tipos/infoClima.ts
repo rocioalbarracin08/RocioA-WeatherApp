@@ -6,6 +6,7 @@ export type Indicador = {
 
 export type ClimaPorDia = {
   ciudad: string;
+  region: string;
   condicion: string;
   codigoCondicion: number;
   fecha: string;

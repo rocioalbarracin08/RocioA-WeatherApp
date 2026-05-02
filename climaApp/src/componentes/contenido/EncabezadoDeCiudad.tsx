@@ -1,19 +1,19 @@
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { useColorScheme } from 'nativewind';
 
-const EncabezadoDeCiudad = ({ ciudad }: { ciudad: string | null }) => {
+const EncabezadoDeCiudad = ({ ciudad, region }: { ciudad: string | null, region: string | null }) => {
   const { colorScheme } = useColorScheme();
+  const color = colorScheme === 'dark' ? '#ffffff' : '#000000';
 
   return (
-    <Text style={{
-      fontSize: 30,
-      fontWeight: '500',
-      textAlign: 'center',
-      color: colorScheme === 'dark' ? '#ffffff' : '#000000',
-      opacity: 0.85,
-    }} className="items-center my-3">
-      {ciudad}
-    </Text>
+    <View style={{ alignItems: 'center' }}>
+      <Text style={{ fontSize: 30, fontWeight: '500', color, opacity: 0.85 }}>
+        {region}
+      </Text>
+      <Text style={{ fontSize: 17, color, opacity: 0.5 }}>
+        {ciudad}
+      </Text>
+    </View>
   );
 };
 

@@ -22,8 +22,6 @@ const TarjetaParaDatosClimaticos = ({ clima }: { clima: ClimaPorDia | null }) =>
         <Text style={estilos.textoSecundario}>   Máx   ↑    {Math.round(clima.max)}°</Text>
       </View>
 
-      <Text style={estilos.textoSecundario}>{clima.condicion}</Text>
-
       <View style={estilos.grilla}>
         {clima.indicadores.map((indicador) => (
           <View key={indicador.tipo} style={estilos.tarjetaIndicador}>
@@ -48,7 +46,7 @@ const crearEstilos = (esDark: boolean) => {
     contenedor: {
       alignItems: 'center' as const,
       paddingHorizontal: 24,
-      gap: 30,
+      gap: 35,
     },
     temperatura: {
       fontSize: 80,
@@ -58,7 +56,7 @@ const crearEstilos = (esDark: boolean) => {
     },
     filaMiniMax: {
       flexDirection: 'row' as const,
-      gap: 16,
+      gap: 14,
     },
     textoBase: {
       color: colorTexto,
@@ -79,7 +77,7 @@ const crearEstilos = (esDark: boolean) => {
     tarjetaIndicador: {
       alignItems: 'center' as const,
       gap: 4,
-      paddingVertical: 14,
+      paddingVertical: 16,
       paddingHorizontal: 16,
       borderRadius: 16,
       backgroundColor: colorTarjeta,
@@ -93,6 +91,7 @@ const crearEstilos = (esDark: boolean) => {
     labelIndicador: {
       fontSize: 12,
       color: colorSubtexto,
+      textAlign: 'center' as const,
     },
   };
 };
