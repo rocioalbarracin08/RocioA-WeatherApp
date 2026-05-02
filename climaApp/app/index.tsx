@@ -15,6 +15,7 @@ const App = () => {
   if (!pantallaPuedeRenderizarse) return (
     <CargandoContenido/>
   );
+  console.log("codigo condicion:", datosClima?.codigoCondicion);
   
   return (
     <LayoutParaPantallaPrincipalDelClima>
@@ -22,9 +23,9 @@ const App = () => {
 
       <EncabezadoDeCiudad ciudad={datosClima?.ciudad ?? ""} region={datosClima?.region ?? ""} />
 
-      <IconoClima codigo={datosClima?.codigoCondicion ?? 1000} />
+      <IconoClima codigo={datosClima?.codigoCondicion ?? 0} />
 
-      <TarjetaParaDatosClimaticos clima={datosClima} />
+      <TarjetaParaDatosClimaticos clima={datosClima} diaIndex={diaIndex} />
 
       <BotonDeTema />
     </LayoutParaPantallaPrincipalDelClima>

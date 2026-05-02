@@ -29,14 +29,13 @@ export default function BotonesDeNavegacionPorDias({
           <ChevronLeft size={20} color={color} />
           <View>
             <Text style={{ fontSize: 11, color: colorTenue }}>{ETIQUETAS[diaIndex - 1]}</Text>
-            <Text style={{ fontSize: 13, color }}>{formatear(dias[diaIndex - 1])}</Text>
+            <Text style={{ fontSize: 11, color: colorTenue }}>{formatear(dias[diaIndex - 1])}</Text>
           </View>
         </Pressable>
       ) : (
         <View style={{ width: 80 }} />
       )}
 
-      {/* Centro */}
       <View style={{ alignItems: 'center' }}>
         <Text style={{ fontSize: 13, color: colorTenue, fontWeight: '500' }}>{ETIQUETAS[diaIndex]}</Text>
         <Text style={{ fontSize: 22, fontWeight: 'bold', color }}>{formatear(diaActual)}</Text>
@@ -46,7 +45,7 @@ export default function BotonesDeNavegacionPorDias({
         <Pressable onPress={() => setDiaIndex(diaIndex + 1)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4, width: 80, justifyContent: 'flex-end' }}>
           <View style={{ alignItems: 'flex-end' }}>
             <Text style={{ fontSize: 11, color: colorTenue }}>{ETIQUETAS[diaIndex + 1]}</Text>
-            <Text style={{ fontSize: 13, color }}>{formatear(dias[diaIndex + 1])}</Text>
+            <Text style={{ fontSize: 11, color: colorTenue }}>{formatear(dias[diaIndex + 1])}</Text>
           </View>
           <ChevronRight size={20} color={color} />
         </Pressable>
