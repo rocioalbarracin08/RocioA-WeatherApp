@@ -33,7 +33,7 @@ export const usePronosticoClimatico = ({
           { tipo: "Sensación térmica",      valor: Math.round(index === 0 ? json.current.feelslike_c : dia.day.avgtemp_c), unidad: "°C" },
           { tipo: "Humedad",        valor: index === 0 ? json.current.humidity : dia.day.avghumidity,              unidad: "%" },
           { tipo: "Viento",         valor: index === 0 ? json.current.wind_kph : dia.day.maxwind_kph,             unidad: "km/h" },
-          { tipo: "Lluvia",         valor: index === 0 ? json.current.precip_mm : dia.day.totalprecip_mm,         unidad: "mm" },
+          { tipo: "Índice UV", valor: index === 0 ? json.current.uv : dia.day.uv, unidad: "" },
           { tipo: "Prob. lluvia",   valor: dia.day.daily_chance_of_rain,                                          unidad: "%" },
         ]
       }));

@@ -13,9 +13,12 @@ const TarjetaParaDatosClimaticos = ({ clima }: { clima: ClimaPorDia | null }) =>
   return (
     <View style={estilos.contenedor}>
 
-      <Text style={estilos.temperatura}>
-        {Math.round(clima.temperatura)}°
-      </Text>
+      <View style={{ alignItems: 'center' }}>
+        <Text style={estilos.temperatura}>
+          {Math.round(clima.temperatura)}°
+        </Text>
+        <Text style={estilos.labelTemperatura}>Temp. actual</Text>
+      </View>
 
       <View style={estilos.filaMiniMax}>
         <Text style={estilos.textoSecundario}>Mín   ↓    {Math.round(clima.min)}°      |</Text>
@@ -47,6 +50,12 @@ const crearEstilos = (esDark: boolean) => {
       alignItems: 'center' as const,
       paddingHorizontal: 24,
       gap: 35,
+    },
+    labelTemperatura: {
+      fontSize: 12,
+      color: colorSubtexto,
+      marginTop: -10, // lo acerca a la temperatura grande
+      letterSpacing: 1,
     },
     temperatura: {
       fontSize: 80,
