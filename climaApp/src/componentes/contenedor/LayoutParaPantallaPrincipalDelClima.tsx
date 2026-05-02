@@ -1,10 +1,11 @@
 import React, { PropsWithChildren } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-
-const LayoutParaPantallaPrincipalDelClima = ({children}: PropsWithChildren) => {
+const LayoutParaPantallaPrincipalDelClima = ({ children }: PropsWithChildren) => {
   return (
-    <SafeAreaView>{children}</SafeAreaView>
+    <SafeAreaView style={{ flex: 1, position: 'relative' }}>
+      {children}
+    </SafeAreaView>
   )
 }
 

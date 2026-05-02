@@ -7,6 +7,7 @@ import useLocalizacion from '@/src/hooks/localizacion'
 import EncabezadoDeCiudad from '../src/componentes/contenido/EncabezadoDeCiudad'
 import usePronosticoClimatico from '../src/hooks/clima'
 import IconoClima from '../src/componentes/contenido/IconoClima'
+import BotonDeTema from '@/src/tema_claro_oscuro/BotonTema'
 
 const App = () => {
   const [diaIndex, setDiaIndex] = useState(0);
@@ -21,12 +22,6 @@ const App = () => {
     clave_de_api: process.env.EXPO_PUBLIC_API_KEY as string,
     diaIndex,
   });
-  console.log("=== DEBUG ===");
-  console.log("coordenadasDisponibles:", coordenadasDisponibles());
-  console.log("coordenadas:", coordenadas());
-  console.log("estaPendiente:", climaHook.estaPendiente());
-  console.log("clima():", climaHook.clima());
-  console.log("diaIndex:", diaIndex);
 
   //Returns condicionales DESPUÉS de todos los hooks
   if (!coordenadasDisponibles()) return null;
@@ -36,14 +31,20 @@ const App = () => {
 
   return (
     <LayoutParaPantallaPrincipalDelClima>
+
       <BotonesDeNavegacionPorDias
         {...fecha()}
         diaIndex={diaIndex}
         setDiaIndex={setDiaIndex}
       />
       <EncabezadoDeCiudad ciudad={datosClima?.ciudad ?? ""} />
+
       <IconoClima codigo={datosClima?.codigoCondicion ?? 1000} />
+
       <TarjetaParaDatosClimaticos clima={datosClima} />
+      
+      <BotonDeTema />
+
     </LayoutParaPantallaPrincipalDelClima>
   );
 };

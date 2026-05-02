@@ -12,17 +12,12 @@ export const usePronosticoClimatico = ({
 }) => {
   const { isPending, isFetched, isError, error, data } = useQuery({
     enabled: latitud !== 0 && longitud !== 0,
-
-    //un solo fetch para los 3 días, por eso no usamos diaIndex
     queryKey: [fecha.getDate(), latitud, longitud],
-
     queryFn: async (): Promise<ClimaPorDia[]> => {
       const resultado = await fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=${clave_de_api}&q=${latitud},${longitud}&days=3`
+        `https://api.weatherapi.com/v1/forecast.json?key=${clave_de_api}&q=${latitud},${longitud}&days=3`
       );
       const json = await resultado.json();
-      console.log("RESPUESTA API:", JSON.stringify(json).slice(0, 300)); // ← agregá esto
-
       const dias = json.forecast.forecastday;
 
       return dias.map((dia: any, index: number) => ({
@@ -34,8 +29,12 @@ export const usePronosticoClimatico = ({
         min: dia.day.mintemp_c,
         max: dia.day.maxtemp_c,
         indicadores: [
-          { tipo: "Humedad", valor: json.current.humidity, unidad: "%" },
-          { tipo: "Viento", valor: json.current.wind_kph, unidad: "km/h" }
+          { tipo: "Sensación",      valor: Math.round(index === 0 ? json.current.feelslike_c : dia.day.avgtemp_c), unidad: "°C" },
+          { tipo: "Humedad",        valor: index === 0 ? json.current.humidity : dia.day.avghumidity,              unidad: "%" },
+          { tipo: "Viento",         valor: index === 0 ? json.current.wind_kph : dia.day.maxwind_kph,             unidad: "km/h" },
+          { tipo: "Lluvia",         valor: index === 0 ? json.current.precip_mm : dia.day.totalprecip_mm,         unidad: "mm" },
+          { tipo: "Prob. lluvia",   valor: dia.day.daily_chance_of_rain,                                          unidad: "%" },
+          { tipo: "UV",             valor: index === 0 ? json.current.uv : dia.day.uv,                            unidad: "" },
         ]
       }));
     },
@@ -45,11 +44,7 @@ export const usePronosticoClimatico = ({
     estaPendiente: () => isPending,
     huboUnProblema: () => isError,
     descripcionDelProblema: () => (isError ? (error as Error).message : ''),
-
-    clima: (): ClimaPorDia | null => {
-      console.log("isFetched:", isFetched, "data:", data);
-      return isFetched && data ? data[diaIndex] : null;
-    },
+    clima: (): ClimaPorDia | null => (isFetched && data ? data[diaIndex] : null),
   };
 };
 
