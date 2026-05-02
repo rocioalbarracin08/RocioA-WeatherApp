@@ -1,7 +1,6 @@
-import { Text } from "@/components/ui/text";
-import { Icon } from "@/components/ui/icon"; 
+import { Text, Pressable, View } from "react-native";
 import { ChevronLeft, ChevronRight } from "lucide-react-native";
-import { Pressable, View } from "react-native";
+import { useColorScheme } from "nativewind";
 
 export default function BotonesDeNavegacionPorDias({
   hoy, ayer, maniana, diaIndex, setDiaIndex
@@ -9,6 +8,9 @@ export default function BotonesDeNavegacionPorDias({
   hoy: Date; ayer: Date; maniana: Date;
   diaIndex: number; setDiaIndex: (n: number) => void;
 }) {
+  const { colorScheme } = useColorScheme();
+  const color = colorScheme === 'dark' ? '#ffffff' : '#000000';
+
   const dias = [ayer, hoy, maniana];
   const diaActual = dias[diaIndex];
   const hayAnterior = diaIndex > 0;
@@ -19,23 +21,23 @@ export default function BotonesDeNavegacionPorDias({
 
       {hayAnterior ? (
         <Pressable onPress={() => setDiaIndex(diaIndex - 1)} className="items-center w-16">
-          <Text>{`${dias[diaIndex - 1].getDate()}/${dias[diaIndex - 1].getMonth() + 1}`}</Text>          
-          <Icon as={ChevronLeft} size={24} />
+          <Text style={{ color }}>{`${dias[diaIndex - 1].getDate()}/${dias[diaIndex - 1].getMonth() + 1}`}</Text>
+          <ChevronLeft size={24} color={color} />
         </Pressable>
       ) : (
-        <View className="w-16" /> 
+        <View className="w-16" />
       )}
 
       <View className="items-center">
-        <Text className="text-2xl font-bold">
+        <Text style={{ fontSize: 22, fontWeight: 'bold', color }}>
           {`${diaActual.getDate()}/${diaActual.getMonth() + 1}`}
         </Text>
       </View>
 
       {haySiguiente ? (
         <Pressable onPress={() => setDiaIndex(diaIndex + 1)} className="items-center w-16">
-          <Text>{`${dias[diaIndex + 1].getDate()}/${dias[diaIndex + 1].getMonth() + 1}`}</Text>
-          <Icon as={ChevronRight} size={24} />
+          <Text style={{ color }}>{`${dias[diaIndex + 1].getDate()}/${dias[diaIndex + 1].getMonth() + 1}`}</Text>
+          <ChevronRight size={24} color={color} />
         </Pressable>
       ) : (
         <View className="w-16" />
