@@ -4,7 +4,7 @@ import useLocalizacion from './localizacion';
 import usePronosticoClimatico from './clima';
 
 export const usePantallaPrincipal = () => {
-  const [diaIndex, setDiaIndex] = useState(0);
+  const [diaIndex, setDiaIndex] = useState(1);
   const { fecha } = useFechas();
   const { coordenadas, coordenadasDisponibles } = useLocalizacion();
 
