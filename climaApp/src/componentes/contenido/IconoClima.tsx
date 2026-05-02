@@ -40,7 +40,7 @@ const IconoClima = ({ codigo }: Props) => {
   const Icono = obtenerIconoPorCodigo(codigo);
 
   return (
-    <View className="items-center my-4">
+    <View className="items-center my-6">
       <Icon as={Icono} size={110} />
     </View>
   );

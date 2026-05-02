@@ -18,8 +18,8 @@ const TarjetaParaDatosClimaticos = ({ clima }: { clima: ClimaPorDia | null }) =>
       </Text>
 
       <View style={estilos.filaMiniMax}>
-        <Text style={estilos.textoSecundario}>Mín   ↓    {Math.round(clima.min)}°</Text>
-        <Text style={estilos.textoSecundario}>Máx   ↑    {Math.round(clima.max)}°</Text>
+        <Text style={estilos.textoSecundario}>Mín   ↓    {Math.round(clima.min)}°      |</Text>
+        <Text style={estilos.textoSecundario}>   Máx   ↑    {Math.round(clima.max)}°</Text>
       </View>
 
       <Text style={estilos.textoSecundario}>{clima.condicion}</Text>
@@ -48,7 +48,7 @@ const crearEstilos = (esDark: boolean) => {
     contenedor: {
       alignItems: 'center' as const,
       paddingHorizontal: 24,
-      gap: 16,
+      gap: 30,
     },
     temperatura: {
       fontSize: 80,
@@ -86,12 +86,12 @@ const crearEstilos = (esDark: boolean) => {
       width: '30%' as const,
     },
     valorIndicador: {
-      fontSize: 18,
+      fontSize: 13,
       fontWeight: '600' as const,
       color: colorTexto,
     },
     labelIndicador: {
-      fontSize: 11,
+      fontSize: 12,
       color: colorSubtexto,
     },
   };
