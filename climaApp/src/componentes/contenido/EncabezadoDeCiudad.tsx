@@ -7,7 +7,7 @@ const EncabezadoDeCiudad = ({ ciudad, region }: { ciudad: string | null, region:
 
   return (
     <View style={{ alignItems: 'center' }}>
-      <Text style={{ fontSize: 30, fontWeight: '500', color, opacity: 0.85 }}>
+      <Text style={{ fontSize: 30, fontWeight: '500', color, opacity: 0.85, marginTop: 25 }}>
         {region}
       </Text>
       <Text style={{ fontSize: 17, color, opacity: 0.5 }}>

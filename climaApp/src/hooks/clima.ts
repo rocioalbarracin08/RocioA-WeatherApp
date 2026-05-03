@@ -72,7 +72,7 @@ export const usePronosticoClimatico = ({
               { tipo: "Humedad",           valor: esDiaDeHoy ? datosDePronostico.current.humidity : diaDelPronostico.day.avghumidity,              unidad: "%" },
               { tipo: "Viento",            valor: esDiaDeHoy ? datosDePronostico.current.wind_kph : diaDelPronostico.day.maxwind_kph,              unidad: "km/h" },
               { tipo: "Indice UV",         valor: diaDelPronostico.day.uv,                                                                         unidad: "" },
-              { tipo: "Prob lluvia",       valor: diaDelPronostico.day.daily_chance_of_rain,                                                       unidad: "%" },
+              { tipo: "Prob lluvia",       valor: diaDelPronostico.day.daily_chance_of_rain,                                                       unidad: "%" },            
             ]
           };
         }

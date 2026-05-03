@@ -28,16 +28,9 @@ const TarjetaParaDatosClimaticos = ({ clima, diaIndex }: { clima: ClimaPorDia | 
   return (
     <View style={estilos.contenedor}>
 
-      <View style={{ alignItems: 'center' }}>
-
-        <Text style={estilos.temperatura}>
-          {Math.round(clima.temperatura)}°
-        </Text>
-        <Text style={estilos.labelTemperatura}>
-          {diaIndex === 0 ? 'Ayer' : diaIndex === 1 ? 'Temp. actual' : 'Mañana'}
-        </Text>
-
-      </View>
+      <Text style={estilos.temperatura}>
+        {Math.round(clima.temperatura)}°
+      </Text>
 
       <View style={estilos.filaMiniMax}>
         <Text style={estilos.textoSecundario}>Mín ↓ {Math.round(clima.min)}°</Text>
@@ -45,11 +38,11 @@ const TarjetaParaDatosClimaticos = ({ clima, diaIndex }: { clima: ClimaPorDia | 
         <Text style={estilos.textoSecundario}> Máx ↑ {Math.round(clima.max)}°</Text>
       </View>
 
-      <View style={estilos.grilla}>
+      <View style={estilos.filaMetricas}>
         {clima.indicadores.map((indicador) => {
           const IconoDeMetrica = mapaDeIconosPorMetrica[indicador.tipo];
           return (
-            <View key={indicador.tipo} style={estilos.tarjetaIndicador}>
+            <View key={indicador.tipo} style={estilos.metricaSimple}>
               {IconoDeMetrica && (
                 <IconoDeMetrica size={20} color={colorIconoTenue} />
               )}
@@ -74,7 +67,7 @@ const crearEstilos = (esDark: boolean) => {
     contenedor: {
       alignItems: 'center' as const,
       paddingHorizontal: 24,
-      gap: 35,
+      gap: 25,
     },
     labelTemperatura: {
       fontSize: 12,
@@ -83,14 +76,15 @@ const crearEstilos = (esDark: boolean) => {
       letterSpacing: 1,
     },
     temperatura: {
-      fontSize: 60,
-      fontWeight: '200' as const,
+      fontSize: 50,
+      fontWeight: '400' as const,
       letterSpacing: -2,
       color: colorTexto,
     },
     filaMiniMax: {
       flexDirection: 'row' as const,
-      gap: 5,
+      gap: 8,
+      marginBottom: 16,
     },
     textoBase: {
       color: colorTexto,
@@ -100,22 +94,16 @@ const crearEstilos = (esDark: boolean) => {
       fontSize: 16,
       color: colorSubtexto,
     },
-    grilla: {
+    filaMetricas: {
       flexDirection: 'row' as const,
       flexWrap: 'wrap' as const,
       justifyContent: 'center' as const,
-      gap: 10,
-      marginTop: 0,
+      gap: 36,
       width: '100%' as const,
     },
-    tarjetaIndicador: {
+    metricaSimple: {
       alignItems: 'center' as const,
-      gap: 6,
-      paddingVertical: 16,
-      paddingHorizontal: 16,
-      borderRadius: 16,
-      backgroundColor: colorTarjeta,
-      width: '30%' as const,
+      gap: 10,
     },
     valorIndicador: {
       fontSize: 13,
