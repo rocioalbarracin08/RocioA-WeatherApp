@@ -37,7 +37,6 @@ export const usePronosticoClimatico = ({
       const nombreDeRegion = datosDePronostico.location.region;
       const datosDelDiaDeAyer = datosDeAyer.forecast.forecastday[0];
 
-      // ✅ Sensación térmica de ayer a la hora actual
       const horaActual = new Date().getHours();
       const sensacionTermicaAEstaHoraDeAyer = Math.round(
         datosDelDiaDeAyer.hour?.[horaActual]?.feelslike_c ?? datosDelDiaDeAyer.day.avgtemp_c
