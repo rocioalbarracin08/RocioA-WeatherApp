@@ -15,4 +15,4 @@ https://github.com/rocioalbarracin08/RocioA-WeatherApp/releases
 ## Tener en cuenta...
 
 - Es necesario estar conectado internet
-- La APK incluye API Key para la conexión con la api de [text](https://www.weatherapi.com/)
+- La APK incluye API Key para la conexión con la api de [weatherApi](https://www.weatherapi.com/)
