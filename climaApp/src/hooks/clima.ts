@@ -37,6 +37,12 @@ export const usePronosticoClimatico = ({
       const nombreDeRegion = datosDePronostico.location.region;
       const datosDelDiaDeAyer = datosDeAyer.forecast.forecastday[0];
 
+      // ✅ Sensación térmica de ayer a la hora actual
+      const horaActual = new Date().getHours();
+      const sensacionTermicaAEstaHoraDeAyer = Math.round(
+        datosDelDiaDeAyer.hour?.[horaActual]?.feelslike_c ?? datosDelDiaDeAyer.day.avgtemp_c
+      );
+
       const climaDeAyer: ClimaPorDia = {
         ciudad: nombreDeCiudad,
         region: nombreDeRegion,
@@ -47,11 +53,11 @@ export const usePronosticoClimatico = ({
         min: datosDelDiaDeAyer.day.mintemp_c,
         max: datosDelDiaDeAyer.day.maxtemp_c,
         indicadores: [
-          { tipo: "Sensacion termica", valor: Math.round(datosDelDiaDeAyer.day.avgtemp_c), unidad: "°C" },
-          { tipo: "Humedad",           valor: datosDelDiaDeAyer.day.avghumidity,           unidad: "%" },
-          { tipo: "Viento",            valor: datosDelDiaDeAyer.day.maxwind_kph,           unidad: "km/h" },
-          { tipo: "Indice UV",         valor: datosDelDiaDeAyer.day.uv,                    unidad: "" },
-          { tipo: "Prob lluvia",       valor: datosDelDiaDeAyer.day.daily_chance_of_rain,  unidad: "%" },
+          { tipo: "Sensacion termica", valor: sensacionTermicaAEstaHoraDeAyer,          unidad: "°C" },
+          { tipo: "Humedad",           valor: datosDelDiaDeAyer.day.avghumidity,         unidad: "%" },
+          { tipo: "Viento",            valor: datosDelDiaDeAyer.day.maxwind_kph,         unidad: "km/h" },
+          { tipo: "Indice UV",         valor: datosDelDiaDeAyer.day.uv,                  unidad: "" },
+          { tipo: "Prob lluvia",       valor: datosDelDiaDeAyer.day.daily_chance_of_rain, unidad: "%" },
         ]
       };
 
@@ -72,7 +78,7 @@ export const usePronosticoClimatico = ({
               { tipo: "Humedad",           valor: esDiaDeHoy ? datosDePronostico.current.humidity : diaDelPronostico.day.avghumidity,              unidad: "%" },
               { tipo: "Viento",            valor: esDiaDeHoy ? datosDePronostico.current.wind_kph : diaDelPronostico.day.maxwind_kph,              unidad: "km/h" },
               { tipo: "Indice UV",         valor: diaDelPronostico.day.uv,                                                                         unidad: "" },
-              { tipo: "Prob lluvia",       valor: diaDelPronostico.day.daily_chance_of_rain,                                                       unidad: "%" },            
+              { tipo: "Prob lluvia",       valor: diaDelPronostico.day.daily_chance_of_rain,                                                       unidad: "%" },
             ]
           };
         }

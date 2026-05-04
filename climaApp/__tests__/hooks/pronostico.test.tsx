@@ -56,7 +56,7 @@ const crearWrapper = () => {
     React.createElement(QueryClientProvider, { client: queryClient }, children);
 };
 
-describe('Como usuario debo poder obtener todos los datos de la API climática según el día', () => {
+describe('Como usuario debo poder obtener los datos de la API climática según el día', () => {
 
   beforeEach(() => {
     global.fetch = jest.fn();

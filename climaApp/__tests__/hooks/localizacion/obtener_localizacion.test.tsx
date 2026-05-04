@@ -39,4 +39,19 @@ describe('Yo como usuario quiero visualizar los datos del clima según la fecha 
       });
     });
   });
+  test('si el permiso es denegado, usa las coordenadas de CABA por defecto', async () => {
+  const { requestForegroundPermissionsAsync } = require('expo-location');
+  requestForegroundPermissionsAsync.mockResolvedValueOnce({ status: 'denied' });
+
+  const resultado = renderHook(() => useLocalizacion());
+
+  await waitFor(() => {
+    expect(resultado.result.current.coordenadas()).toEqual({
+      latitud: -34.6037,
+      longitud: -58.3816,
+    });
+  });
+
+  expect(resultado.result.current.coordenadasDisponibles()).toBe(true);
+});
 });
