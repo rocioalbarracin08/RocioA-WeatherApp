@@ -28,16 +28,6 @@ const TarjetaParaDatosClimaticos = ({ clima, diaIndex }: { clima: ClimaPorDia | 
   return (
     <View style={estilos.contenedor}>
 
-      <Text style={estilos.temperatura}>
-        {Math.round(clima.temperatura)}°
-      </Text>
-
-      <View style={estilos.filaMiniMax}>
-        <Text style={estilos.textoSecundario}>Mín ↓ {Math.round(clima.min)}°</Text>
-        <Text style={estilos.textoSecundario}>  |  </Text>
-        <Text style={estilos.textoSecundario}> Máx ↑ {Math.round(clima.max)}°</Text>
-      </View>
-
       <View style={estilos.filaMetricas}>
         {clima.indicadores.map((indicador) => {
           const IconoDeMetrica = mapaDeIconosPorMetrica[indicador.tipo];
@@ -52,6 +42,16 @@ const TarjetaParaDatosClimaticos = ({ clima, diaIndex }: { clima: ClimaPorDia | 
             </View>
           );
         })}
+      </View>
+
+      <Text style={estilos.temperatura}>
+        {Math.round(clima.temperatura)}°
+      </Text>
+
+      <View style={estilos.filaMiniMax}>
+        <Text style={estilos.textoSecundario}>Mín ↓ {Math.round(clima.min)}°</Text>
+        <Text style={estilos.textoSecundario}>  |  </Text>
+        <Text style={estilos.textoSecundario}> Máx ↑ {Math.round(clima.max)}°</Text>
       </View>
 
     </View>
@@ -72,7 +72,6 @@ const crearEstilos = (esDark: boolean) => {
     labelTemperatura: {
       fontSize: 12,
       color: colorSubtexto,
-      marginTop: -9,
       letterSpacing: 1,
     },
     temperatura: {
@@ -80,6 +79,7 @@ const crearEstilos = (esDark: boolean) => {
       fontWeight: '400' as const,
       letterSpacing: -2,
       color: colorTexto,
+      marginTop: 20,
     },
     filaMiniMax: {
       flexDirection: 'row' as const,
@@ -99,6 +99,7 @@ const crearEstilos = (esDark: boolean) => {
       flexWrap: 'wrap' as const,
       justifyContent: 'center' as const,
       gap: 36,
+      marginTop: 16,
       width: '100%' as const,
     },
     metricaSimple: {

@@ -24,7 +24,7 @@ const IconoClima = ({ codigo }: Props) => {
   const Icono = obtenerIconoPorCodigo(codigo);
 
   return (
-    <View style={{ alignItems: 'center', marginVertical: 40 }}>
+    <View style={{ alignItems: 'center', marginVertical: 40, marginTop: 45 }}>
       <Icono size={190} color={colorDelIcono} />
     </View>
   );

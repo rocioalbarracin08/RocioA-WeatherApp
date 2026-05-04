@@ -17,7 +17,7 @@ jest.mock('../../../src/hooks/clima', () => ({
   }),
 }));
 
-describe('usePantallaPrincipal - navegación por días', () => {
+describe('Como usuario quiero poder navegar por días', () => {
 
   it('arranca mostrando el día de hoy (índice 1)', () => {
     const { result } = renderHook(() => usePantallaPrincipal());
